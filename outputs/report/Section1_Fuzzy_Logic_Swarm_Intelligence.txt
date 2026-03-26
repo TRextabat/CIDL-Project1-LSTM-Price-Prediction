@@ -1,0 +1,702 @@
+================================================================================
+SECTION 1: FUZZY LOGIC, SWARM INTELLIGENCE AND DEEP LEARNING MODELS
+================================================================================
+
+Ege University - Faculty of Engineering - Computer Engineering Department
+Computational Intelligence and Deep Learning (3+0)
+2025-2026 Spring Semester - Project 1
+
+================================================================================
+1.i) WHAT IS FUZZY LOGIC? (5 pts)
+================================================================================
+
+Definition
+----------
+
+Fuzzy Logic is a form of many-valued logic that extends classical Boolean logic
+by allowing truth values to range continuously between 0 and 1, rather than
+being restricted to the binary values of true (1) and false (0). First
+introduced by Lotfi A. Zadeh in his seminal 1965 paper "Fuzzy Sets" published
+in Information and Control, fuzzy logic provides a mathematical framework for
+reasoning with imprecise, vague, or uncertain information -- the kind of
+information that pervades human cognition and natural language (Zadeh, 1965).
+
+In classical set theory, an element either belongs to a set or it does not; the
+boundary is sharp and unambiguous. Fuzzy logic, by contrast, introduces the
+concept of partial membership: an element can belong to a set to a certain
+degree, expressed as a real number in the interval [0, 1]. For instance, in a
+classical system, a room temperature of 22 degrees Celsius is either "warm" or
+"not warm." In a fuzzy system, that temperature might be "warm" with a degree
+of membership of 0.7 and simultaneously "cool" with a degree of 0.3. This
+capacity to model gradual transitions between categories makes fuzzy logic
+exceptionally well-suited for handling the inherent ambiguity of real-world
+systems.
+
+Importance of Fuzzy Logic
+-------------------------
+
+Fuzzy logic is important for several fundamental reasons:
+
+1. Modeling Human Reasoning: Human decision-making is rarely binary. People
+   think in terms of linguistic variables such as "fast," "somewhat hot," or
+   "very tall." Fuzzy logic captures this linguistic reasoning mathematically,
+   bridging the gap between human cognition and computational systems.
+
+2. Handling Uncertainty and Imprecision: Real-world data is often noisy,
+   incomplete, or inherently vague. Fuzzy logic provides robust mechanisms for
+   making decisions even when inputs are imprecise, without requiring the strict
+   probabilistic models that classical approaches demand.
+
+3. Simplifying Complex Control Systems: Many nonlinear, multivariable systems
+   are exceedingly difficult to model with precise mathematical equations. Fuzzy
+   logic allows engineers to design controllers based on expert knowledge
+   expressed as intuitive IF-THEN rules, avoiding the need for complex
+   mathematical modeling.
+
+4. Wide Applicability: From consumer electronics (washing machines, cameras) to
+   industrial automation, medical diagnosis, and autonomous navigation, fuzzy
+   logic has demonstrated practical effectiveness across diverse domains.
+
+Fuzzy Set Operations and Their Formulas
+----------------------------------------
+
+The three fundamental operations on fuzzy sets -- intersection, union, and
+complement -- generalize their classical counterparts using membership function
+values. Let A and B be fuzzy sets defined on a universal set X, with membership
+functions mu_A(x) and mu_B(x), respectively.
+
+1. Intersection (AND Operation):
+   The intersection of two fuzzy sets A and B yields a fuzzy set whose
+   membership function at each point x is the minimum of the two individual
+   membership values:
+
+       mu_{A intersection B}(x) = min(mu_A(x), mu_B(x))
+
+   This operation corresponds to logical AND and represents the degree to which
+   an element simultaneously belongs to both sets. For example, if mu_A(x) =
+   0.7 and mu_B(x) = 0.4, then mu_{A intersection B}(x) = min(0.7, 0.4) =
+   0.4. The element belongs to the intersection only to the extent that it
+   satisfies the more restrictive condition.
+
+2. Union (OR Operation):
+   The union of two fuzzy sets A and B produces a fuzzy set whose membership
+   function at each point x is the maximum of the two membership values:
+
+       mu_{A union B}(x) = max(mu_A(x), mu_B(x))
+
+   This corresponds to logical OR and captures the degree to which an element
+   belongs to at least one of the sets. For instance, if mu_A(x) = 0.7 and
+   mu_B(x) = 0.4, then mu_{A union B}(x) = max(0.7, 0.4) = 0.7.
+
+3. Complement (NOT Operation):
+   The complement of a fuzzy set A yields a fuzzy set whose membership function
+   at each point x is the arithmetic complement of the original membership
+   value:
+
+       mu_{A_complement}(x) = 1 - mu_A(x)
+
+   This operation represents the degree to which an element does NOT belong to
+   the set. If mu_A(x) = 0.7, then mu_{A_complement}(x) = 1 - 0.7 = 0.3.
+
+These three operations, often referred to as the standard fuzzy operations or
+Zadeh operators, form the foundation upon which more complex fuzzy reasoning
+systems are constructed. Alternative operator families exist -- such as
+algebraic product for intersection (mu_A(x) * mu_B(x)) and algebraic sum for
+union (mu_A(x) + mu_B(x) - mu_A(x) * mu_B(x)) -- but the min-max formulation
+remains the most widely used due to its simplicity and intuitive appeal.
+
+
+================================================================================
+1.ii) MEMBERSHIP FUNCTION, FUZZY RULE, DEFUZZIFICATION, AND HEDGE (5 pts)
+================================================================================
+
+Membership Function (Uyelik Fonksiyonu)
+-----------------------------------------
+
+A membership function is a mathematical function that defines how each element
+of the universal set X is mapped to a degree of membership in a fuzzy set. It
+is denoted as mu_A: X -> [0, 1], where mu_A(x) = 0 indicates no membership,
+mu_A(x) = 1 indicates full membership, and intermediate values represent
+partial membership.
+
+The choice of membership function shape significantly affects the behavior of a
+fuzzy system. The most commonly used types include:
+
+- Triangular Membership Function: Defined by three parameters (a, b, c)
+  representing the left foot, peak, and right foot of a triangle. It is
+  computationally simple and widely used:
+  mu(x) = max(min((x-a)/(b-a), (c-x)/(c-b)), 0)
+
+- Trapezoidal Membership Function: Defined by four parameters (a, b, c, d),
+  creating a flat top between b and c. Useful when a range of values should
+  have full membership.
+
+- Gaussian Membership Function: Defined by a center c and standard deviation
+  sigma, producing a smooth, bell-shaped curve:
+  mu(x) = exp(-(x-c)^2 / (2*sigma^2))
+
+- Sigmoidal Membership Function: An S-shaped curve useful for representing
+  open-ended concepts like "very high" or "very low."
+
+The selection of membership function type and parameters is typically guided by
+domain expertise, data-driven tuning, or optimization algorithms.
+
+Fuzzy Rule (Bulanik Kural)
+----------------------------
+
+A fuzzy rule is an IF-THEN conditional statement that relates fuzzy sets
+through linguistic variables. Fuzzy rules encode expert knowledge in a form
+that a fuzzy inference system can process. The general form is:
+
+    IF (antecedent) THEN (consequent)
+
+For example:
+    IF temperature IS high AND humidity IS low THEN fan_speed IS fast
+
+Here, "temperature," "humidity," and "fan_speed" are linguistic variables, and
+"high," "low," and "fast" are linguistic terms (fuzzy sets) defined by their
+respective membership functions. The collection of all fuzzy rules in a system
+is called the rule base.
+
+Fuzzy rules are evaluated using fuzzy inference mechanisms. The two most
+prevalent inference methods are:
+
+- Mamdani Inference: Both antecedent and consequent are fuzzy sets. The output
+  of each rule is a truncated or scaled fuzzy set, and the outputs of all rules
+  are aggregated before defuzzification.
+
+- Sugeno (Takagi-Sugeno) Inference: The antecedent is a fuzzy set, but the
+  consequent is a crisp function (often linear) of the inputs. The final output
+  is computed as a weighted average.
+
+Defuzzification (Durulastirma)
+-------------------------------
+
+Defuzzification is the process of converting the aggregated fuzzy output of a
+fuzzy inference system into a single crisp (precise, numerical) value. Since
+the output of fuzzy reasoning is a fuzzy set -- a distribution of membership
+values across the output domain -- defuzzification selects the single value
+that best represents that distribution.
+
+The principal defuzzification methods are:
+
+1. Centroid Method (Center of Gravity, COG): The most widely used method. It
+   computes the center of mass of the aggregated output fuzzy set:
+
+       x* = integral(x * mu(x) dx) / integral(mu(x) dx)
+
+   This method produces smooth output and considers the entire shape of the
+   output membership function.
+
+2. Bisector Method: Finds the vertical line that divides the area under the
+   aggregated membership function into two equal halves. It is similar to the
+   centroid but may produce different results for asymmetric distributions.
+
+3. Mean of Maximum (MOM): Computes the average of all output values that have
+   the maximum membership degree. It is simpler than centroid but may ignore
+   the shape of the distribution.
+
+4. Smallest of Maximum (SOM) and Largest of Maximum (LOM): Select the smallest
+   or largest output value among those with maximum membership, respectively.
+
+Hedge
+------
+
+A hedge is a linguistic modifier that adjusts the shape of a membership
+function to refine or intensify a fuzzy concept. Hedges allow fuzzy systems to
+express nuanced distinctions that mirror the subtlety of natural language.
+
+Common hedges and their mathematical definitions include:
+
+- "Very": Concentrates the membership function by squaring it:
+  mu_very_A(x) = [mu_A(x)]^2
+  This narrows the set, requiring stronger membership for inclusion. For
+  example, if mu_tall(x) = 0.8, then mu_very_tall(x) = 0.64.
+
+- "Somewhat" (or "More or Less"): Dilates the membership function by taking
+  the square root:
+  mu_somewhat_A(x) = [mu_A(x)]^(1/2)
+  This broadens the set, making membership easier to achieve. If
+  mu_tall(x) = 0.64, then mu_somewhat_tall(x) = 0.8.
+
+- "Extremely": Applies a higher power, such as cubing:
+  mu_extremely_A(x) = [mu_A(x)]^3
+  This produces an even more concentrated (restrictive) set than "very."
+
+- "Not": Equivalent to the complement operation:
+  mu_not_A(x) = 1 - mu_A(x)
+
+Hedges are valuable because they expand the expressiveness of linguistic rules.
+A rule such as "IF temperature IS very high THEN fan_speed IS extremely fast"
+carries a different meaning from "IF temperature IS somewhat high THEN
+fan_speed IS fast," enabling finer-grained control.
+
+
+================================================================================
+1.iii) THREE APPLICATION AREAS OF FUZZY LOGIC (5 pts)
+================================================================================
+
+Application 1: Autonomous Vehicle Steering Control
+----------------------------------------------------
+
+Fuzzy logic has become a foundational technique in autonomous vehicle
+navigation and steering control systems. In this domain, the vehicle must
+continuously process sensor data -- including distances to lane boundaries,
+relative positions of obstacles, current speed, road curvature, and yaw rate --
+and translate that information into steering wheel angles and acceleration or
+braking commands.
+
+Why Fuzzy Logic Is Used: The driving environment is inherently uncertain and
+variable. Sensor readings are noisy, road conditions change unpredictably, and
+the relationship between sensory inputs and the appropriate steering response
+is highly nonlinear. Developing a precise mathematical model that accounts for
+every possible driving scenario is practically infeasible. Fuzzy logic
+addresses this by allowing engineers to encode driving expertise as intuitive
+rules such as "IF the vehicle is drifting slightly to the right AND the road
+curves left THEN steer moderately to the left." These rules handle the
+continuous, analog nature of driving without requiring exact mathematical
+formulations.
+
+Advantages Over Traditional Methods: Classical PID (Proportional-Integral-
+Derivative) controllers require careful tuning of gain parameters and often
+struggle with nonlinear dynamics and changing operating conditions. Fuzzy
+controllers, by contrast, are inherently robust to nonlinearities and can
+gracefully accommodate a wide range of driving conditions through their rule
+base. They do not require an explicit plant model, reducing development time.
+Furthermore, fuzzy controllers can be more easily understood and adjusted by
+human engineers, since the rules are expressed in natural language terms.
+
+Application 2: Medical Diagnosis Systems
+------------------------------------------
+
+Fuzzy logic is extensively applied in medical diagnosis, where clinical
+decision-making inherently involves uncertainty, imprecision, and subjectivity.
+Symptoms rarely fall into crisp categories: a patient's fever might be
+"moderate," their blood pressure "slightly elevated," and their pain level
+"moderate to severe." Fuzzy systems model these graded assessments naturally.
+
+Why Fuzzy Logic Is Used: Medical diagnosis involves reasoning under uncertainty.
+Physicians often rely on qualitative assessments and linguistic descriptions
+rather than precise numerical thresholds. For example, the boundary between
+"normal" and "high" blood pressure is not a sharp cutoff at 140/90 mmHg; values
+near the boundary carry intermediate levels of clinical concern. Fuzzy logic
+allows diagnostic systems to represent and reason with this graded information,
+producing outputs such as "the patient has a 0.72 degree of likelihood of
+having condition X" rather than a binary yes/no classification.
+
+Advantages Over Traditional Methods: Rule-based expert systems using crisp
+logic suffer from brittleness at threshold boundaries -- a blood pressure of
+139/89 would be classified as "normal" while 140/90 would be "high," despite
+the negligible difference. Fuzzy logic eliminates this threshold problem
+through gradual transitions. Statistical models such as logistic regression
+require large labeled datasets and may not capture the nuanced reasoning of
+experienced clinicians. Fuzzy diagnostic systems, conversely, can be built
+directly from medical expertise and are transparent in their reasoning, making
+them more interpretable and trustworthy to clinicians.
+
+Application 3: Smart Home HVAC (Heating, Ventilation, and Air Conditioning) Control
+-------------------------------------------------------------------------------------
+
+Fuzzy logic is widely used in smart home climate control systems to optimize
+indoor comfort while minimizing energy consumption. Modern HVAC systems must
+balance multiple factors: current room temperature, desired set-point,
+humidity, outdoor weather conditions, occupancy patterns, and time of day.
+
+Why Fuzzy Logic Is Used: Human comfort is a subjective and multidimensional
+concept that does not lend itself to precise mathematical definition. What
+constitutes "comfortable" varies among individuals and depends on a combination
+of temperature, humidity, air flow, and even psychological factors. Fuzzy logic
+captures this subjectivity by defining comfort-related variables as fuzzy sets.
+Rules such as "IF room_temperature IS slightly_above_setpoint AND humidity IS
+high THEN cooling_power IS medium_high" directly encode the kind of reasoning
+a building manager might employ.
+
+Advantages Over Traditional Methods: Conventional thermostat-based control
+uses simple on-off switching at fixed temperature thresholds, leading to
+temperature oscillations, discomfort, and energy waste. Proportional control
+improves upon this but still requires precise tuning and does not account for
+multiple interacting variables. Fuzzy HVAC controllers provide smooth,
+proportional output while simultaneously considering multiple input variables
+through their rule base. Studies have demonstrated that fuzzy-controlled HVAC
+systems can reduce energy consumption by 10-30% compared to conventional
+systems while maintaining or improving occupant comfort (Dounis and
+Caraiscos, 2009). The ability to incorporate expert knowledge without complex
+system identification procedures makes fuzzy control particularly attractive
+for retrofitting existing buildings.
+
+
+================================================================================
+1.iv) FUZZY LOGIC APPLICATION WITH SCIKIT-FUZZY (5 pts)
+================================================================================
+
+Problem Description: Student Performance Evaluation System
+-----------------------------------------------------------
+
+We design a fuzzy logic system that evaluates student academic performance
+based on three input variables and produces a single output. This system
+illustrates how fuzzy reasoning can capture the nuanced, multi-factorial
+nature of academic assessment, where a student's final grade is not merely an
+arithmetic combination of scores but reflects holistic judgment.
+
+Problem Statement: Universities and educators often need to assess student
+performance by weighing multiple factors. A student who attends regularly,
+performs well on assignments, but struggles on exams might still merit a
+reasonable grade. Conversely, a student with poor attendance but high exam
+scores might be penalized for lack of engagement. Our fuzzy system encodes
+such expert pedagogical reasoning.
+
+Input Variables (Antecedents):
+
+1. Attendance Rate (0-100%): Measures the percentage of classes attended by
+   the student. Fuzzy sets: low (0-40%), medium (25-75%), high (60-100%).
+
+2. Assignment Score (0-100): Represents the average score across all
+   assignments. Fuzzy sets: low (0-45), medium (30-80), high (65-100).
+
+3. Exam Score (0-100): Represents the final examination score.
+   Fuzzy sets: low (0-45), medium (30-80), high (65-100).
+
+Output Variable (Consequent):
+
+- Final Grade (0-100): The computed overall performance score.
+  Fuzzy sets: fail (0-35), poor (20-50), average (35-65), good (55-85),
+  excellent (75-100).
+
+Membership Functions:
+
+All input membership functions use triangular shapes for computational
+simplicity and interpretability. For example, the "medium" attendance
+membership function is a triangle with vertices at (25, 0), (50, 1), and
+(75, 0), meaning that 50% attendance has full membership in "medium," while
+25% and 75% have zero membership (they are fully "low" and fully "high,"
+respectively).
+
+The output membership functions also use triangular shapes across five
+linguistic terms (fail, poor, average, good, excellent), providing fine-
+grained resolution in the output space.
+
+Fuzzy Rules:
+
+The rule base consists of 11 rules that encode pedagogical expertise:
+
+Rule 1:  IF attendance IS high AND assignment IS high AND exam IS high
+         THEN grade IS excellent.
+
+Rule 2:  IF attendance IS high AND assignment IS high AND exam IS medium
+         THEN grade IS good.
+
+Rule 3:  IF attendance IS high AND assignment IS medium AND exam IS high
+         THEN grade IS good.
+
+Rule 4:  IF attendance IS medium AND assignment IS high AND exam IS high
+         THEN grade IS good.
+
+Rule 5:  IF attendance IS medium AND assignment IS medium AND exam IS medium
+         THEN grade IS average.
+
+Rule 6:  IF attendance IS low AND assignment IS low AND exam IS low
+         THEN grade IS fail.
+
+Rule 7:  IF attendance IS low AND assignment IS medium AND exam IS medium
+         THEN grade IS poor.
+
+Rule 8:  IF attendance IS high AND assignment IS low AND exam IS low
+         THEN grade IS poor.
+
+Rule 9:  IF attendance IS low AND assignment IS high AND exam IS high
+         THEN grade IS average.
+
+Rule 10: IF attendance IS medium AND assignment IS low AND exam IS high
+         THEN grade IS average.
+
+Rule 11: IF attendance IS high AND assignment IS medium AND exam IS medium
+         THEN grade IS good.
+
+These rules reflect pedagogical reasoning: excellent grades require strong
+performance across all three dimensions; good grades can tolerate one moderate
+area if others are strong; average grades result from consistently moderate
+performance or compensation between weak and strong areas; poor and failing
+grades result from deficiency in multiple areas.
+
+Example Computation:
+
+Consider a student with the following profile:
+- Attendance Rate = 75%
+- Assignment Score = 82
+- Exam Score = 68
+
+Step 1 - Fuzzification: Each input is evaluated against its membership
+functions.
+
+For attendance = 75 (triangular MFs: low=[0,0,40], medium=[25,50,75], high=[60,100,100]):
+  mu_low(75)    = 0.0000  (well beyond the right foot of 40)
+  mu_medium(75) = 0.0000  (exactly at the right foot of 75, so membership = 0)
+  mu_high(75)   = 0.3750  ((75-60)/(100-60) = 15/40 = 0.375)
+
+For assignment = 82 (triangular MFs: low=[0,0,45], medium=[30,55,80], high=[65,100,100]):
+  mu_low(82)    = 0.0000  (well beyond the right foot of 45)
+  mu_medium(82) = 0.0000  (beyond the right foot of 80)
+  mu_high(82)   = 0.4857  ((82-65)/(100-65) = 17/35 approximately 0.486)
+
+For exam = 68 (triangular MFs: low=[0,0,45], medium=[30,55,80], high=[65,100,100]):
+  mu_low(68)    = 0.0000  (well beyond the right foot of 45)
+  mu_medium(68) = 0.4800  ((80-68)/(80-55) = 12/25 = 0.48)
+  mu_high(68)   = 0.0857  ((68-65)/(100-65) = 3/35 approximately 0.086)
+
+Step 2 - Rule Evaluation: Each rule's firing strength is computed using the
+min operator (for AND connectives). The activated rules and their firing
+strengths are:
+- Rule 1 (high att & high assign & high exam):
+  min(0.375, 0.486, 0.086) = 0.086 -> consequent: excellent
+- Rule 2 (high att & high assign & med exam):
+  min(0.375, 0.486, 0.480) = 0.375 -> consequent: good
+- Rule 11 (high att & med assign & med exam):
+  min(0.375, 0.0, 0.480) = 0.0 -> not activated (medium assignment = 0)
+All other rules have at least one antecedent with zero membership and thus
+do not fire.
+
+Step 3 - Aggregation: The consequent fuzzy sets are truncated at their
+respective firing strengths and combined via the max operator.
+
+Step 4 - Defuzzification: The centroid method is applied to the aggregated
+output. The "good" consequent (trimf [55,70,85]) truncated at 0.375 dominates,
+while the "excellent" consequent (trimf [75,100,100]) truncated at 0.086
+provides a small upward pull. The centroid of the combined area yields the
+crisp final grade.
+
+Running the implementation (see accompanying Python code in
+scripts/fuzzy_student_evaluation.py) with these inputs produces a
+defuzzified output. The exact value depends on the numerical integration
+performed by the centroid method over the aggregated output fuzzy set, and
+is expected to fall in the range of approximately 67-72 out of 100, squarely
+in the "good" region.
+
+Interpretation of Results:
+
+The computed grade falls in the "good" region (approximately 67-72 out of
+100), which is reasonable and interpretable. The student has strong attendance
+(75%), strong assignment performance (82), and moderate-to-good exam
+performance (68). The fuzzy system recognizes that this combination warrants
+a grade in the "good" region, but the exam score -- being the weakest
+dimension -- prevents the output from reaching "excellent." This outcome
+aligns with pedagogical intuition: a student who attends regularly and
+completes assignments diligently but performs moderately on exams is a solid
+but not outstanding student.
+
+The fuzzy approach offers advantages over simple weighted averaging because it
+can encode nonlinear relationships and threshold effects. For example, no
+amount of exam excellence can fully compensate for zero attendance under this
+rule base -- a constraint that a weighted average cannot easily enforce without
+additional conditional logic.
+
+
+[Python implementation is provided in the file: scripts/fuzzy_student_evaluation.py]
+
+
+================================================================================
+1.v) COMPARISON OF ABC AND DE ALGORITHMS (5 pts)
+================================================================================
+
+Introduction
+-------------
+
+Artificial Bee Colony (ABC) and Differential Evolution (DE) are both
+population-based metaheuristic optimization algorithms that have gained
+prominence in the field of computational intelligence. While they share the
+common goal of finding optimal or near-optimal solutions to complex
+optimization problems, they differ fundamentally in their inspiration,
+mechanisms, and operational characteristics. This section provides a detailed
+comparative analysis.
+
+Artificial Bee Colony (ABC) Algorithm
+--------------------------------------
+
+The ABC algorithm, proposed by Dervis Karaboga in 2005, is a swarm
+intelligence method inspired by the foraging behavior of honey bee colonies.
+In nature, honey bees coordinate their search for food sources through an
+elegant division of labor and communication system, and the ABC algorithm
+abstracts this biological process into a computational optimization framework.
+
+The ABC algorithm partitions its population into three groups, each
+corresponding to a distinct phase:
+
+1. Employed Bee Phase: Each employed bee is associated with a specific food
+   source (candidate solution). In this phase, employed bees exploit their
+   current food sources by searching in the neighborhood for better solutions.
+   A new candidate solution v_ij is generated by:
+
+       v_ij = x_ij + phi_ij * (x_ij - x_kj)
+
+   where x_ij is the current solution, x_kj is a randomly selected different
+   solution, phi_ij is a random number in [-1, 1], and j is a randomly
+   selected dimension. If the new solution is better (greedy selection), it
+   replaces the current one.
+
+2. Onlooker Bee Phase: Onlooker bees wait in the hive and choose food sources
+   based on the quality information shared by employed bees through a waggle
+   dance. The probability of selecting a food source is proportional to its
+   fitness:
+
+       p_i = fit_i / sum(fit_k)
+
+   This probabilistic selection mechanism directs more search effort toward
+   promising regions, balancing exploration and exploitation.
+
+3. Scout Bee Phase: If a food source has not improved after a predetermined
+   number of trials (called the "limit" parameter), the employed bee
+   associated with it becomes a scout and abandons that source. The scout
+   then initializes a new food source randomly within the search space,
+   introducing fresh diversity and preventing stagnation.
+
+Differential Evolution (DE) Algorithm
+---------------------------------------
+
+Differential Evolution, introduced by Rainer Storn and Kenneth Price in 1997,
+is an evolutionary algorithm designed for continuous optimization problems. DE
+does not draw inspiration from biological organisms; rather, it is rooted in
+the mathematical principles of evolutionary computation, using difference
+vectors between population members to guide the search.
+
+DE operates through three primary mechanisms:
+
+1. Mutation: For each target vector x_i in the current generation, a mutant
+   vector v_i is created using difference vectors. The most common strategy
+   (DE/rand/1) is:
+
+       v_i = x_r1 + F * (x_r2 - x_r3)
+
+   where x_r1, x_r2, x_r3 are three distinct randomly selected vectors from
+   the population, and F (typically in [0.4, 1.0]) is the scaling factor that
+   controls the amplification of the difference vector. Other mutation
+   strategies include DE/best/1 (using the best vector), DE/rand/2 (using two
+   difference vectors), and DE/current-to-best/1.
+
+2. Crossover: A trial vector u_i is constructed by mixing components from the
+   target vector x_i and the mutant vector v_i. In binomial crossover:
+
+       u_ij = v_ij  if rand(0,1) <= CR or j = j_rand
+       u_ij = x_ij  otherwise
+
+   where CR is the crossover rate (in [0, 1]) and j_rand ensures at least one
+   component comes from the mutant vector.
+
+3. Selection: The trial vector u_i competes directly with the target vector
+   x_i. The one with superior fitness survives to the next generation:
+
+       x_i(G+1) = u_i  if f(u_i) <= f(x_i)
+       x_i(G+1) = x_i  otherwise
+
+Comparative Analysis
+---------------------
+
+1. Source of Inspiration:
+   ABC is a swarm intelligence algorithm inspired by the collective foraging
+   behavior of honey bee colonies -- a biological, decentralized phenomenon.
+   DE is an evolutionary algorithm grounded in mathematical operations on
+   population vectors; it has no direct biological metaphor.
+
+2. Population Structure:
+   ABC divides its population into functionally distinct subgroups (employed
+   bees, onlooker bees, and scouts), each with a specific role in the search
+   process. This role differentiation creates a structured, cooperative search
+   strategy. DE treats all population members identically; every vector
+   undergoes the same mutation, crossover, and selection operations without
+   role specialization.
+
+3. Exploration vs. Exploitation Balance:
+   In ABC, exploration is primarily driven by the scout bee mechanism, which
+   randomly reinitializes abandoned solutions, while exploitation is performed
+   by employed and onlooker bees in the neighborhood of existing solutions.
+   The balance is regulated by the "limit" parameter. In DE, exploration and
+   exploitation are jointly controlled by the scaling factor F and crossover
+   rate CR. A larger F promotes exploration (larger mutation steps), while a
+   smaller F and higher CR tend to increase exploitation.
+
+4. Convergence Speed:
+   DE generally exhibits faster convergence on unimodal and moderately
+   multimodal problems because the difference vector mechanism directly
+   leverages population distribution information, enabling efficient
+   directional search. ABC tends to converge more slowly on such problems but
+   maintains better population diversity through the scout mechanism, which
+   can be advantageous for highly multimodal problems where premature
+   convergence is a risk.
+
+5. Parameter Sensitivity:
+   ABC has relatively few control parameters: population size, the "limit"
+   parameter for abandonment, and the maximum number of iterations. Its
+   performance is generally considered robust across a range of parameter
+   settings. DE is more sensitive to its control parameters F and CR. The
+   choice of mutation strategy (DE/rand/1, DE/best/1, etc.) also significantly
+   impacts performance. However, self-adaptive variants of DE (such as JADE,
+   jDE, and SHADE) mitigate this sensitivity by automatically adjusting F and
+   CR during the optimization process.
+
+6. Search Mechanism:
+   ABC generates new solutions by perturbing a single dimension of a solution
+   at a time, which can limit the speed of convergence in high-dimensional
+   spaces. DE modifies multiple dimensions simultaneously through its
+   crossover operation, making it generally more effective in high-dimensional
+   continuous optimization.
+
+7. Application Domains:
+   ABC has been particularly successful in combinatorial optimization, feature
+   selection, neural network training, and engineering design problems where
+   multimodal landscapes are common. DE excels in continuous parameter
+   optimization, power systems, chemical engineering, signal processing, and
+   machine learning hyperparameter tuning. Both algorithms have been
+   hybridized with other techniques and applied to multi-objective
+   optimization problems.
+
+Summary Comparison Table:
+
++-----------------------+---------------------------+---------------------------+
+| Criterion             | ABC                       | DE                        |
++-----------------------+---------------------------+---------------------------+
+| Inspiration           | Honey bee foraging        | Evolutionary math ops     |
+| Population roles      | 3 distinct roles          | Homogeneous               |
+| Perturbation          | Single dimension per step | Multiple dimensions       |
+| Exploration driver    | Scout bees (random reset) | Scaling factor F          |
+| Exploitation driver   | Employed + onlooker bees  | Crossover rate CR         |
+| Key parameters        | Colony size, limit        | F, CR, mutation strategy  |
+| Convergence (unimodal)| Moderate                  | Fast                      |
+| Diversity maintenance | Strong (scout mechanism)  | Moderate                  |
+| Parameter sensitivity | Low                       | Moderate to high          |
+| High-dimensional perf | Moderate                  | Strong                    |
++-----------------------+---------------------------+---------------------------+
+
+In conclusion, neither algorithm is universally superior; the choice between
+ABC and DE should be guided by the characteristics of the optimization
+problem at hand. For problems with highly multimodal landscapes where
+maintaining diversity is critical, ABC's scout mechanism offers a structural
+advantage. For high-dimensional continuous optimization where fast convergence
+is desired, DE's difference-vector-based mutation provides a more direct and
+efficient search strategy. In practice, hybrid approaches combining elements
+of both paradigms have shown promising results, leveraging ABC's robust
+diversity maintenance with DE's efficient convergence properties.
+
+
+================================================================================
+REFERENCES
+================================================================================
+
+Karaboga, D. (2005). An Idea Based on Honey Bee Swarm for Numerical
+    Optimization. Technical Report TR06, Erciyes University.
+
+Storn, R., & Price, K. (1997). Differential Evolution -- A Simple and
+    Efficient Heuristic for Global Optimization over Continuous Spaces.
+    Journal of Global Optimization, 11(4), 341-359.
+
+Zadeh, L. A. (1965). Fuzzy Sets. Information and Control, 8(3), 338-353.
+
+Dounis, A. I., & Caraiscos, C. (2009). Advanced Control Systems Engineering
+    for Energy and Comfort Management in a Building Environment. Renewable
+    and Sustainable Energy Reviews, 13(6-7), 1246-1261.
+
+Mamdani, E. H., & Assilian, S. (1975). An Experiment in Linguistic Synthesis
+    with a Fuzzy Logic Controller. International Journal of Man-Machine
+    Studies, 7(1), 1-13.
+
+Ross, T. J. (2010). Fuzzy Logic with Engineering Applications (3rd ed.).
+    John Wiley & Sons.
+
+================================================================================
