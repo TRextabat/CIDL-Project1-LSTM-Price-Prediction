@@ -1,0 +1,72 @@
+[
+  {
+    "session_id": "66dffd34-d48f-47c6-b27f-a98b2f696ed0",
+    "hook_event_name": "Notification",
+    "notification_type": "permission_prompt",
+    "message": "Claude needs your permission to use Bash",
+    "title": ""
+  },
+  {
+    "session_id": "66dffd34-d48f-47c6-b27f-a98b2f696ed0",
+    "hook_event_name": "Notification",
+    "notification_type": "permission_prompt",
+    "message": "Claude Code needs your attention",
+    "title": ""
+  },
+  {
+    "session_id": "66dffd34-d48f-47c6-b27f-a98b2f696ed0",
+    "hook_event_name": "Notification",
+    "notification_type": "permission_prompt",
+    "message": "Claude Code needs your attention",
+    "title": ""
+  },
+  {
+    "session_id": "66dffd34-d48f-47c6-b27f-a98b2f696ed0",
+    "hook_event_name": "Notification",
+    "notification_type": "permission_prompt",
+    "message": "Claude Code needs your attention",
+    "title": ""
+  },
+  {
+    "session_id": "66dffd34-d48f-47c6-b27f-a98b2f696ed0",
+    "hook_event_name": "Notification",
+    "notification_type": "permission_prompt",
+    "message": "Claude needs your permission to use Bash",
+    "title": ""
+  },
+  {
+    "session_id": "66dffd34-d48f-47c6-b27f-a98b2f696ed0",
+    "hook_event_name": "Notification",
+    "notification_type": "permission_prompt",
+    "message": "Claude needs your permission to use Bash",
+    "title": ""
+  },
+  {
+    "session_id": "66dffd34-d48f-47c6-b27f-a98b2f696ed0",
+    "hook_event_name": "Notification",
+    "notification_type": "permission_prompt",
+    "message": "Claude needs your permission to use Bash",
+    "title": ""
+  },
+  {
+    "session_id": "66dffd34-d48f-47c6-b27f-a98b2f696ed0",
+    "hook_event_name": "Notification",
+    "notification_type": "permission_prompt",
+    "message": "Claude needs your permission to use Bash",
+    "title": ""
+  },
+  {
+    "session_id": "66dffd34-d48f-47c6-b27f-a98b2f696ed0",
+    "hook_event_name": "Notification",
+    "notification_type": "permission_prompt",
+    "message": "Claude Code needs your attention",
+    "title": ""
+  },
+  {
+    "session_id": "66dffd34-d48f-47c6-b27f-a98b2f696ed0",
+    "hook_event_name": "Notification",
+    "notification_type": "permission_prompt",
+    "message": "Claude needs your permission to use Bash",
+    "title": ""
+  }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "session_id": "66dffd34-d48f-47c6-b27f-a98b2f696ed0",
+    "hook_event_name": "SubagentStop",
+    "stop_hook_active": false,
+    "agent_id": "a9b470e864207bffd",
+    "agent_type": "Explore",
+    "agent_transcript_path": "/home/user/.claude/projects/-home-user-D-CIDL-project1/66dffd34-d48f-47c6-b27f-a98b2f696ed0/subagents/agent-a9b470e864207bffd.jsonl"
+  },
+  {
+    "session_id": "66dffd34-d48f-47c6-b27f-a98b2f696ed0",
+    "hook_event_name": "SubagentStop",
+    "stop_hook_active": false,
+    "agent_id": "af4da98ffc34c8bbf",
+    "agent_type": "Explore",
+    "agent_transcript_path": "/home/user/.claude/projects/-home-user-D-CIDL-project1/66dffd34-d48f-47c6-b27f-a98b2f696ed0/subagents/agent-af4da98ffc34c8bbf.jsonl"
+  },
+  {
+    "session_id": "66dffd34-d48f-47c6-b27f-a98b2f696ed0",
+    "hook_event_name": "SubagentStop",
+    "stop_hook_active": false,
+    "agent_id": "a2a243287996af963",
+    "agent_type": "Plan",
+    "agent_transcript_path": "/home/user/.claude/projects/-home-user-D-CIDL-project1/66dffd34-d48f-47c6-b27f-a98b2f696ed0/subagents/agent-a2a243287996af963.jsonl"
+  },
+  {
+    "session_id": "66dffd34-d48f-47c6-b27f-a98b2f696ed0",
+    "hook_event_name": "SubagentStop",
+    "stop_hook_active": false,
+    "agent_id": "afed51ce881944eb0",
+    "agent_type": "quant-analyst",
+    "agent_transcript_path": "/home/user/.claude/projects/-home-user-D-CIDL-project1/66dffd34-d48f-47c6-b27f-a98b2f696ed0/subagents/agent-afed51ce881944eb0.jsonl"
+  },
+  {
+    "session_id": "66dffd34-d48f-47c6-b27f-a98b2f696ed0",
+    "hook_event_name": "SubagentStop",
+    "stop_hook_active": false,
+    "agent_id": "ab5b9612b7bfacb8d",
+    "agent_type": "",
+    "agent_transcript_path": "/home/user/.claude/projects/-home-user-D-CIDL-project1/66dffd34-d48f-47c6-b27f-a98b2f696ed0/subagents/agent-ab5b9612b7bfacb8d.jsonl"
+  },
+  {
+    "session_id": "66dffd34-d48f-47c6-b27f-a98b2f696ed0",
+    "hook_event_name": "SubagentStop",
+    "stop_hook_active": false,
+    "agent_id": "ad9f89d6ad0297884",
+    "agent_type": "data-scientist",
+    "agent_transcript_path": "/home/user/.claude/projects/-home-user-D-CIDL-project1/66dffd34-d48f-47c6-b27f-a98b2f696ed0/subagents/agent-ad9f89d6ad0297884.jsonl"
+  }
+]

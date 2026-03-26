@@ -1,0 +1,58 @@
+[
+  {
+    "session_id": "66dffd34-d48f-47c6-b27f-a98b2f696ed0",
+    "transcript_path": "/home/user/.claude/projects/-home-user-D-CIDL-project1/66dffd34-d48f-47c6-b27f-a98b2f696ed0.jsonl",
+    "cwd": "/home/user/D/CIDL_project1",
+    "permission_mode": "plan",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "/hugging-face-model-trainer"
+  },
+  {
+    "session_id": "66dffd34-d48f-47c6-b27f-a98b2f696ed0",
+    "transcript_path": "/home/user/.claude/projects/-home-user-D-CIDL-project1/66dffd34-d48f-47c6-b27f-a98b2f696ed0.jsonl",
+    "cwd": "/home/user/D/CIDL_project1",
+    "permission_mode": "plan",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "ok explain what we can do for each option"
+  },
+  {
+    "session_id": "66dffd34-d48f-47c6-b27f-a98b2f696ed0",
+    "transcript_path": "/home/user/.claude/projects/-home-user-D-CIDL-project1/66dffd34-d48f-47c6-b27f-a98b2f696ed0.jsonl",
+    "cwd": "/home/user/D/CIDL_project1",
+    "permission_mode": "plan",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "hey in which one I can use my local hardware and it woudl be enogh other wisw we will need to use runpod or colab"
+  },
+  {
+    "session_id": "66dffd34-d48f-47c6-b27f-a98b2f696ed0",
+    "transcript_path": "/home/user/.claude/projects/-home-user-D-CIDL-project1/66dffd34-d48f-47c6-b27f-a98b2f696ed0.jsonl",
+    "cwd": "/home/user/D/CIDL_project1",
+    "permission_mode": "plan",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "let talk about lstm more what we can do"
+  },
+  {
+    "session_id": "66dffd34-d48f-47c6-b27f-a98b2f696ed0",
+    "transcript_path": "/home/user/.claude/projects/-home-user-D-CIDL-project1/66dffd34-d48f-47c6-b27f-a98b2f696ed0.jsonl",
+    "cwd": "/home/user/D/CIDL_project1",
+    "permission_mode": "plan",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "ok take look at @/home/user/D/FinAgent/ it is project i am doing by my slef so Stock/Crypto price prediction do this in production level and I will use it later in Finagent someday but do it now here you can use data I have in finagent if need , make plan to do all parts and use @\"parallel-orchestrator (agent)\"  to can develop all (you must init git repo first ) at the end need a report with figures that cover anything and what professor want in report and convert it to pdf"
+  },
+  {
+    "session_id": "66dffd34-d48f-47c6-b27f-a98b2f696ed0",
+    "transcript_path": "/home/user/.claude/projects/-home-user-D-CIDL-project1/66dffd34-d48f-47c6-b27f-a98b2f696ed0.jsonl",
+    "cwd": "/home/user/D/CIDL_project1",
+    "permission_mode": "plan",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "my deadline is 9 hours"
+  },
+  {
+    "session_id": "66dffd34-d48f-47c6-b27f-a98b2f696ed0",
+    "transcript_path": "/home/user/.claude/projects/-home-user-D-CIDL-project1/66dffd34-d48f-47c6-b27f-a98b2f696ed0.jsonl",
+    "cwd": "/home/user/D/CIDL_project1",
+    "permission_mode": "plan",
+    "hook_event_name": "UserPromptSubmit",
+    "prompt": "hey as you can use @\"parallel-orchestrator (agent)\" so we can develope fast we will use claude to develope just becarfull about training times also be ure use gpu for train"
+  }
+]
