@@ -1,0 +1,45 @@
+data:
+  finagent_data_dir: "/home/user/D/FinAgent/data/"
+  assets:
+    - symbol: xauusd
+      timeframe: 1h
+    - symbol: btcusd
+      timeframe: 1d
+  feature_set: standard_20
+
+models:
+  - name: simple_lstm
+    hidden_size: 128
+    num_layers: 1
+    dropout: 0.0
+  - name: stacked_lstm
+    hidden_size: 128
+    num_layers: 3
+    dropout: 0.2
+  - name: bilstm
+    hidden_size: 128
+    num_layers: 2
+    dropout: 0.2
+  - name: lstm_attention
+    hidden_size: 128
+    num_layers: 2
+    dropout: 0.2
+
+experiments:
+  lookback_windows: [30, 60]
+  prediction_horizons: [1, 5]
+  training:
+    max_epochs: 50
+    patience: 10
+    batch_size: 64
+    learning_rate: 0.001
+    grad_clip: 1.0
+    walk_forward_folds: 3
+    purge_bars: 30
+  optuna:
+    n_trials: 15
+    target_model: stacked_lstm
+    target_asset: xauusd_1h
+
+seed: 42
+output_dir: outputs
