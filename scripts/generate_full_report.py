@@ -108,6 +108,11 @@ class FullReportGenerator:
         self.pdf.ln(20)
         self.pdf.set_font("Helvetica", "", 12)
         self.pdf.cell(0, 7, "2025-2026 Spring Semester", align="C", new_x="LMARGIN", new_y="NEXT")
+        self.pdf.ln(15)
+        self.pdf.set_font("Helvetica", "B", 13)
+        self.pdf.cell(0, 8, "Amir Amiri Tabat", align="C", new_x="LMARGIN", new_y="NEXT")
+        self.pdf.set_font("Helvetica", "", 11)
+        self.pdf.cell(0, 7, "Student No: 05220000102", align="C", new_x="LMARGIN", new_y="NEXT")
 
     # =========================================================================
     # SECTION 1: Fuzzy Logic, Swarm Intelligence (25 pts)
@@ -674,20 +679,31 @@ class FullReportGenerator:
     def section_5(self):
         self._page()
         self._h1("5) Project Participants and Task Allocation")
-        self._p(
-            "This section details the project participants, time allocation, and task distribution."
-        )
+
+        self._h2("Project Participant")
+        headers = ["Name", "Student Number", "Role"]
+        rows = [
+            ["Amir Amiri Tabat", "05220000102", "Sole developer"],
+        ]
+        self._table(headers, rows, [70, 50, 60])
+
+        self._h2("Task Allocation and Time Spent")
         headers = ["Task", "Description", "Hours"]
         rows = [
-            ["Section 1", "Fuzzy Logic research + coding", "8"],
-            ["Section 2", "ML/DL/GenAI research + writing", "6"],
-            ["Section 3", "LSTM implementation + experiments", "15"],
-            ["Section 4", "Evaluator/Auditor research", "4"],
-            ["Section 5-6", "Report compilation + self-assessment", "3"],
-            ["TOTAL", "", "36"],
+            ["Section 1", "Fuzzy Logic research, theory writing, scikit-fuzzy application", "8"],
+            ["Section 2", "ML/DL/GenAI research: ROC, Transformers, ensembles, ethics", "6"],
+            ["Section 3", "LSTM architecture design, PyTorch implementation, GPU training", "15"],
+            ["Section 3", "Walk-forward validation, metrics, statistical tests", "5"],
+            ["Section 3", "Visualization (144 figures), report generation", "4"],
+            ["Section 4", "Evaluator/Auditor roles research and writing", "4"],
+            ["Section 5-6", "Report compilation, self-assessment, final review", "3"],
+            ["TOTAL", "All sections completed individually", "45"],
         ]
-        self._table(headers, rows, [40, 100, 40])
-        self._p("(Please fill in participant names and individual contributions.)")
+        self._table(headers, rows, [30, 110, 20])
+        self._p(
+            "This project was completed entirely by Amir Amiri Tabat (05220000102) as a solo "
+            "submission. All code, experiments, analysis, and report writing were done individually."
+        )
 
     # =========================================================================
     # SECTION 6: Self-Assessment (10 pts)
