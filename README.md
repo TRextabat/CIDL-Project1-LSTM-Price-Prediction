@@ -5,6 +5,18 @@
 **University:** Ege University, Faculty of Engineering, Computer Engineering
 **Semester:** 2025--2026 Spring
 
+**GitHub Repository:** https://github.com/TRextabat/CIDL-Project1-LSTM-Price-Prediction
+
+---
+
+> **Note on ZIP submission:** To keep the submission file size manageable, the following are excluded from the ZIP archive:
+> - `outputs/figures/` — 148 individual experiment figures (equity curves, scatter plots, residual analyses, prediction overlays). Only composite grid images and key diagrams are included.
+> - `outputs/models/` — Saved PyTorch model checkpoints
+> - `.venv/` — Python virtual environment
+> - `.git/` — Git history
+>
+> **All outputs, figures, and model files are available in the full GitHub repository above.**
+
 ---
 
 ## Project Overview
